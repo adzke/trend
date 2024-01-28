@@ -11,10 +11,31 @@ import { MyComponent } from './Card';
 
 export const App = () => {
 
-    const Seperator = () => {
-        return (
-            <View style={{margin: '10em'}}>
+    
+    const Feed =  () => {
+        const elements = [];
+        const url = fetch("https://picsum.photos/700").then(response => {
+            response.then(i => {
+                console.log(i)
+            })
+        })
 
+    fetch('https://picsum.photos/700')
+    .then(response => response.json())
+    .then(commits => console.log(commits));
+
+        for (let i = 0; i < 100; i++) {
+            elements.push(MyComponent)  
+        }
+        return (
+            <View>
+                {elements.map(Element => {
+                    return (
+                        <View style={{marginTop: 10, marginBottom: 10}}>    
+                              <Element url={url} />              
+                        </View>
+                    )
+                })}
             </View>
         )
     }
@@ -23,20 +44,19 @@ export const App = () => {
         container: {
             flex: 1,
             paddingTop: StatusBar.currentHeight,
+            backgroundColor: 'black'
         },
         scrollView: {
-            marginHorizontal: 20,
+            marginHorizontal: 10,
         },
         text: {
             fontSize: 42,
         },
     });
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container} >
             <ScrollView style={styles.scrollView}>
-              <MyComponent/>
-              <Seperator/>
-              <MyComponent/>
+                <Feed />
             </ScrollView>
         </SafeAreaView>
     );
